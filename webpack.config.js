@@ -13,8 +13,23 @@ module.exports = {
         rules: [
             {
                 test: /\.(ts|tsx)$/,
-                exclude: /node_modules/,
+                // exclude: /node_modules/,
                 use: "ts-loader",
+            },
+            {
+                test: /\.(css)$/,
+                use: [
+                    {loader: "style-loader"},
+                    {loader: "css-loader"},
+                ],
+            },
+            {
+                test: /\.(ttf|eot|svg|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: "file-loader",
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: "file-loader",
             },
         ]
     },

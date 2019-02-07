@@ -1,8 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
+import "semantic-ui-css/semantic.min.css";
+
+import Sample from "./components/sample"
+
 ReactDOM.render(
-    <h1>sample</h1>,
+    <Sample />,
     document.getElementById("app")
 );
 
