@@ -3,10 +3,10 @@ import * as ReactDOM from "react-dom";
 
 import "semantic-ui-css/semantic.min.css";
 
-import Sample from "./components/sample"
+import App from "./App"
 
 ReactDOM.render(
-    <Sample />,
+    <App />,
     document.getElementById("app")
 );
 
