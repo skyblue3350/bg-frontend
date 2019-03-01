@@ -1,6 +1,9 @@
 import * as React from "react";
 
 import ResponsiveHeader from "./components/ResponsiveHeader"
+import EntryHeader from "./components/EntryHeader"
+import EntryContent from "./components/EntryContent"
+import Footer from "./components/Footer"
 
 export interface Props {
 }
@@ -17,6 +20,9 @@ export default class App extends React.Component<Props, State> {
         return (
             <div>
                 <ResponsiveHeader />
+                <EntryHeader />
+                <EntryContent />
+                <Footer />
             </div>
         );
     }

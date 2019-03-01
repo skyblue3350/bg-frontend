@@ -7,7 +7,8 @@ import {
     Segment,
     Menu,
     Image,
-    Input,
+    Header,
+    Icon,
 } from "semantic-ui-react"
 import styled from "styled-components";
 
@@ -22,7 +23,7 @@ export interface State {
     fixed: boolean,
 }
 
-export default class DesktopHeader extends React.Component<Props, State> {
+export default class MobileHeader extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -45,7 +46,10 @@ export default class DesktopHeader extends React.Component<Props, State> {
 
     render(): JSX.Element {
         return (
-            <Responsive getWidth={this.getWidth} minWidth={Responsive.onlyTablet.minWidth}>
+            <Responsive
+                getWidth={this.getWidth}
+                maxWidth={Responsive.onlyMobile.maxWidth}
+            >
                 <Visibility
                     once={false}
                     onBottomPassed={this.showFixedMenu.bind(this)}
@@ -65,12 +69,11 @@ export default class DesktopHeader extends React.Component<Props, State> {
                             <Container>
                                 <Menu.Item as="a" header>
                                     <Image size="mini" src="/images/icon.png" style={{ marginRight: "1.5em" }} />
-                                    Home
+                                    Mobile
                                 </Menu.Item>
                                 <Menu.Item as="a">List</Menu.Item>
                                 <Menu.Item as="a">Database</Menu.Item>
                                 <Menu.Item position="right">
-                                    <Input placeholder='Search...' style={{ marginRight: "1.5em" }} />
                                     <Button as="a" inverted={!this.state.fixed}>
                                         Login
                                     </Button>

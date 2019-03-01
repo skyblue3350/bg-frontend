@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import DesktopHeader from "./DesktopHeader"
+import MobileHeader from "./MobileHeader"
 
 export interface Props {
 }
@@ -17,6 +18,7 @@ export default class ResponsiveHeader extends React.Component<Props, State> {
         return (
             <div>
                 <DesktopHeader />
+                <MobileHeader />
             </div>
         );
     }
