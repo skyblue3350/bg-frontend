@@ -45,6 +45,6 @@ module.exports = {
         host: "0.0.0.0",
         contentBase: path.join(__dirname, "assets"),
         watchContentBase: true,
-        open: true,
+        open: false,
     }
 }
