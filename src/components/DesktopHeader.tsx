@@ -10,6 +10,7 @@ import {
     Input,
 } from "semantic-ui-react"
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const CustomSegment = styled(Segment)`
     min-height: 700px;
@@ -70,8 +71,8 @@ export default class DesktopHeader extends React.Component<Props, State> {
                                 <Menu.Item as="a">List</Menu.Item>
                                 <Menu.Item as="a">Database</Menu.Item>
                                 <Menu.Item position="right">
-                                    <Input placeholder='Search...' style={{ marginRight: "1.5em" }} />
-                                    <Button as="a" inverted={!this.state.fixed}>
+                                    <Input placeholder="Search..." style={{ marginRight: "1.5em" }} />
+                                    <Button as={Link} to={"/login"} inverted={!this.state.fixed}>
                                         Login
                                     </Button>
                                 </Menu.Item>

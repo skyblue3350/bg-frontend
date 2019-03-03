@@ -1,9 +1,12 @@
 import * as React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import ResponsiveHeader from "./components/ResponsiveHeader"
 import EntryHeader from "./components/EntryHeader"
 import EntryContent from "./components/EntryContent"
+import LoginForm from "./components/LoginFrom"
 import Footer from "./components/Footer"
+
 
 export interface Props {
 }
@@ -18,12 +21,15 @@ export default class App extends React.Component<Props, State> {
 
     render(): JSX.Element {
         return (
-            <div>
-                <ResponsiveHeader />
-                <EntryHeader />
-                <EntryContent />
-                <Footer />
-            </div>
+            <Router basename="/">
+                <div>
+                    <ResponsiveHeader />
+                    <Route path="/" exact component={EntryHeader} />
+                    <Route path="/" exact component={EntryContent} />
+                    <Route path="/login" component={LoginForm} />
+                    <Footer />
+                </div>
+            </Router>
         );
     }
 }
