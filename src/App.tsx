@@ -24,9 +24,11 @@ export default class App extends React.Component<Props, State> {
             <Router basename="/">
                 <div>
                     <ResponsiveHeader />
-                    <Route path="/" exact component={EntryHeader} />
-                    <Route path="/" exact component={EntryContent} />
-                    <Route path="/login" component={LoginForm} />
+                    <Switch>
+                        <Route path="/" exact component={EntryHeader} />
+                        <Route path="/" exact component={EntryContent} />
+                        <Route path="/login" component={LoginForm} />
+                    </Switch>
                     <Footer />
                 </div>
             </Router>
