@@ -1,7 +1,7 @@
 export const LOGIN = "LOGIN"
 export const LOGOUT = "LOGOUT"
 
-interface UserState {
+export interface UserState {
     uid: string
     jwt: string
 }
