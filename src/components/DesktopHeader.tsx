@@ -12,18 +12,24 @@ import {
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const CustomSegment = styled(Segment)`
-    min-height: 700px;
-`
+import { UserState } from "../redux/user";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import { ReduxState } from "../redux/configure-store";
 
 export interface Props {
+    uid: UserState["jwt"],
 }
 
 export interface State {
     fixed: boolean,
 }
 
-export default class DesktopHeader extends React.Component<Props, State> {
+export class DesktopHeader extends React.Component<Props, State> {
+    static defaultProps: Props = {
+        uid: null,
+    }
+
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -72,9 +78,15 @@ export default class DesktopHeader extends React.Component<Props, State> {
                                 <Menu.Item as="a">Database</Menu.Item>
                                 <Menu.Item position="right">
                                     <Input placeholder="Search..." style={{ marginRight: "1.5em" }} />
-                                    <Button as={Link} to={"/login"} inverted={!this.state.fixed}>
-                                        Login
-                                    </Button>
+                                    { this.props.uid === null ?
+                                        <Button as={Link} to={"/login"} inverted={!this.state.fixed}>
+                                            Login
+                                        </Button> :
+                                        <Button as={Link} to={"/login"} inverted={!this.state.fixed}>
+                                            Logout
+                                        </Button>
+                                    }
+                                    
                                 </Menu.Item>
                             </Container>
                         </Menu>
@@ -86,3 +98,9 @@ export default class DesktopHeader extends React.Component<Props, State> {
     }
 }
 
+const mapStateToProps = (state: ReduxState) => ({
+    uid: state.UserReducer.uid
+});
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({dispatch});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DesktopHeader);
