@@ -2,10 +2,10 @@ import * as React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import ResponsiveHeader from "./components/ResponsiveHeader"
-import EntryHeader from "./components/EntryHeader"
-import EntryContent from "./components/EntryContent"
 import LoginForm from "./components/LoginFrom"
 import Footer from "./components/Footer"
+import Top from "./routes/top";
+import NotFound from "./routes/404";
 
 
 export interface Props {
@@ -25,9 +25,9 @@ export default class App extends React.Component<Props, State> {
                 <div>
                     <ResponsiveHeader />
                     <Switch>
-                        <Route path="/" exact component={EntryHeader} />
-                        <Route path="/" exact component={EntryContent} />
+                        <Route path="/" exact component={Top} />
                         <Route path="/login" component={LoginForm} />
+                        <Route component={NotFound} />
                     </Switch>
                     <Footer />
                 </div>
