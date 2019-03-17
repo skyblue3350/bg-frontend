@@ -1,4 +1,6 @@
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+
 import UserReducer, { UserState } from "./user";
 
 export type ReduxState = {
@@ -9,6 +11,9 @@ export default function configureStore() {
     const reducer = combineReducers({
         UserReducer,
     });
-    const store = createStore(reducer);
+    const store = createStore(
+        reducer,
+        applyMiddleware(thunk)
+    );
     return store;
 }
