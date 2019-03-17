@@ -3,23 +3,23 @@ import * as React from "react";
 import EntryHeader from "../components/EntryHeader";
 import EntryContent from "../components/EntryContent";
 
-export interface Props {
+interface Props {
 }
 
-export interface State {
+interface State {
 }
 
-export default class Top extends React.Component<Props, State> {
+export default class TopPage extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);   
     }
 
     render(): JSX.Element {
         return (
-            <div>
+            <React.Fragment>
                 <EntryHeader/>
                 <EntryContent/>
-            </div>
+            </React.Fragment>
         )
     }
 }

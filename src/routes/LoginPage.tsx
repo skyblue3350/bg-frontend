@@ -9,23 +9,31 @@ import {
     Segment,
     Grid,
     Form,
-    Message
+    Message,
+    Icon
 } from "semantic-ui-react"
 import { Link } from "react-router-dom";
+import { Dispatch } from "redux";
+import { ReduxState } from "../redux/configure-store";
+import { connect } from "react-redux";
+import { login, UserActions, fetch, fail } from "../redux/user";
 
 export interface Props {
+    isFetch: boolean,
+    message: string,
 }
 
 export interface State {
 }
 
-export default class LoginForm extends React.Component<Props, State> {
-    constructor(props: Props) {
+class LoginPage extends React.Component<Props & UserActions, State> {
+    constructor(props: Props & UserActions) {
         super(props);
     }
 
     login() {
-        console.log("login")
+        console.log("login");
+        this.props.login("ID", "pass");
     }
 
     render(): JSX.Element {
@@ -37,7 +45,7 @@ export default class LoginForm extends React.Component<Props, State> {
                             <Header as="h3" style={{ fontSize: "2em" }} textAlign="center">
                                 メールアドレスでログイン
                             </Header>
-                            <Form error={true} onSubmit={()=>{this.login.bind(this)}}>
+                            <Form error={true} onSubmit={this.login.bind(this)}>
                                 <Segment stacked>
                                     <Form.Input fluid icon="user" iconPosition="left" placeholder="E-mail address" required />
                                     <Form.Input
@@ -47,9 +55,9 @@ export default class LoginForm extends React.Component<Props, State> {
                                         placeholder="Password"
                                         required
                                         type="password"/>
-                                    <Message error header="Error" content="aaaa" />
+                                    {this.props.message == null ? null : <Message error header="Error" content={this.props.message} />}
                                     <Button.Group>
-                                        <Form.Button positive content="ログイン" />
+                                        <Form.Button positive content="ログイン" disabled={this.props.isFetch}/>
                                         <Button.Or />
                                         <Button negative as="div">パスワードリセット</Button>
                                     </Button.Group>
@@ -66,13 +74,24 @@ export default class LoginForm extends React.Component<Props, State> {
                             <Header as="h3" style={{ fontSize: "2em" }} textAlign="center">
                                 SNSでログイン
                             </Header>
-                                {["Twitter", "Google", "Discord"].map((provider) => {
-                                    return (
-                                        <Button color="teal" fluid style={{margin:10}}>
-                                            {provider}
-                                        </Button>
-                                    )
-                                })}
+
+                            <Divider />
+                            <Button color="twitter" fluid>
+                                <Icon name="twitter" /> Twitter
+                            </Button>
+                            <Divider />
+                            <Button color="google plus" fluid>
+                                <Icon name="google plus" /> Google
+                            </Button>
+                            <Divider />
+                            <Button color="facebook" fluid>
+                                <Icon name="discord" /> Discord
+                            </Button>
+                            <Divider />
+                            <Button fluid>
+                                <Icon name="github" /> Github
+                            </Button>
+                            <Divider />
 
                         </Grid.Column>
                     </Grid.Row>
@@ -81,3 +100,19 @@ export default class LoginForm extends React.Component<Props, State> {
         )
     }
 }
+
+const mapStateToProps = (state: ReduxState) => ({
+    uid: state.UserReducer.uid,
+    isFetch: state.UserReducer.isFetch,
+    message: state.UserReducer.message,
+});
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+    login: (uid: string, pass: string) => {
+        console.log("login dispatch", uid, pass);
+        dispatch(fetch());
+        dispatch(fail("aaaaaa"));
+        //dispatch(login("username", "token"));
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
