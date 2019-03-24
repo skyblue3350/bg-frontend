@@ -1,19 +1,26 @@
 import axios from "axios";
+import GamesAPI from "./api/games";
 
 export default class API {
-    private instance;
+    private axios;
+    public games;
+    public host = "http://192.168.1.5:1337";
 
     constructor(token?: string) {
-        this.instance = axios.create({
-            baseURL: "http://192.168.1.5:1337",
+        this.axios = axios.create({
+            baseURL: this.host,
             timeout: 1000,
             responseType: "json",
         });
-        //this.instance.defaultConfig.headers.authorization = "aaaa";
+        if (token) {
+            this.axios.defaults.headers.Authorization = `Bearer ${token}`;
+        }
+
+        this.games = new GamesAPI(this.axios);
     }
 
     login(uid: string, pass: string) {
-        return this.instance.post("/auth/local", {
+        return this.axios.post("/auth/local", {
             identifier: uid,
             password: pass,
         });
