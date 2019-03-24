@@ -29,10 +29,10 @@ export default class Footer extends React.Component<Props, State> {
                         <Grid.Row>
                             <Grid.Column width={16}>
                                 <Header as="h4" inverted>
-                                    Footer Header
+                                    BoardGame Sommelier
                                 </Header>
                                 <p>
-                                    Extra space for a call to action inside the footer that could help re-engage users.
+                                    Copyright © 2019- BoardGame Sommelier All Rights Reserved.
                                 </p>
                             </Grid.Column>
                         </Grid.Row>
