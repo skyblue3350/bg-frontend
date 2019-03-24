@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 import { Dispatch } from "redux";
 import { ReduxState } from "../redux/configure-store";
 import { connect } from "react-redux";
-import { login, UserActions, fetch, fail } from "../redux/user";
+import { login, UserActions, fetch, fail, login_local } from "../redux/user";
 
 export interface Props {
     isFetch: boolean,
@@ -24,16 +24,27 @@ export interface Props {
 }
 
 export interface State {
+    [uid: string]: string,
+    pass: string,
 }
 
 class LoginPage extends React.Component<Props & UserActions, State> {
     constructor(props: Props & UserActions) {
         super(props);
+        this.state = {
+            uid: "",
+            pass: "",
+        };
     }
 
     login() {
-        console.log("login");
-        this.props.login("ID", "pass");
+        this.props.login(this.state.uid, this.state.pass);
+    }
+
+    handleChange(event: React.FormEvent, data) {
+        this.setState({
+            [data.name]: data.value
+        });
     }
 
     render(): JSX.Element {
@@ -47,8 +58,19 @@ class LoginPage extends React.Component<Props & UserActions, State> {
                             </Header>
                             <Form error={true} onSubmit={this.login.bind(this)}>
                                 <Segment stacked>
-                                    <Form.Input fluid icon="user" iconPosition="left" placeholder="E-mail address" required />
                                     <Form.Input
+                                        name="uid"
+                                        value={this.state.uid}
+                                        onChange={this.handleChange.bind(this)}
+                                        fluid
+                                        icon="user"
+                                        iconPosition="left"
+                                        placeholder="E-mail address"
+                                        required />
+                                    <Form.Input
+                                        name="pass"
+                                        value={this.state.pass}
+                                        onChange={this.handleChange.bind(this)}
                                         fluid
                                         icon="lock"
                                         iconPosition="left"
@@ -59,12 +81,12 @@ class LoginPage extends React.Component<Props & UserActions, State> {
                                     <Button.Group>
                                         <Form.Button positive content="ログイン" disabled={this.props.isFetch}/>
                                         <Button.Or />
-                                        <Button negative as="div">パスワードリセット</Button>
+                                        <Button negative as="div" disabled>パスワードリセット</Button>
                                     </Button.Group>
 
                                     <Divider />
 
-                                    <Button color="teal" as={Link} to="/register">
+                                    <Button color="teal" as={Link} to="/register" disabled>
                                         新規登録
                                     </Button>
                                 </Segment>
@@ -106,13 +128,8 @@ const mapStateToProps = (state: ReduxState) => ({
     isFetch: state.UserReducer.isFetch,
     message: state.UserReducer.message,
 });
-const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-    login: (uid: string, pass: string) => {
-        console.log("login dispatch", uid, pass);
-        dispatch(fetch());
-        dispatch(fail("aaaaaa"));
-        //dispatch(login("username", "token"));
-    }
+const mapDispatchToProps = (dispatch: Dispatch<any>, getState: () => UserActions) => ({
+    login: (uid: string, pass: string) => dispatch(login_local(uid, pass))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
