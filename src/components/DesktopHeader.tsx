@@ -77,8 +77,8 @@ export class DesktopHeader extends React.Component<Props, State> {
                                     <Image size="mini" src="/images/icon.png" style={{ marginRight: "1.5em" }} />
                                     Home
                                 </Menu.Item>
-                                <Menu.Item as="a">List</Menu.Item>
-                                <Menu.Item as="a">Database</Menu.Item>
+                                <Menu.Item as={Link} to={"/database/"}>Database</Menu.Item>
+                                <Menu.Item as={Link} to={"/" + this.props.uid + "/"}>My Library</Menu.Item>
                                 <Menu.Item position="right">
                                     <Input placeholder="Search..." style={{ marginRight: "1.5em" }} />
                                     { this.props.uid === null ?
@@ -88,7 +88,7 @@ export class DesktopHeader extends React.Component<Props, State> {
                                         <Dropdown text={this.props.username} fluid>
                                             <Dropdown.Menu>
                                                 <Dropdown.Item text="Database" as={Link} to={"/database/"}/>
-                                                <Dropdown.Item text="Library" as={Link} to={this.props.uid + "/"}/>
+                                                <Dropdown.Item text="My Library" as={Link} to={"/" + this.props.uid + "/"}/>
                                                 <Dropdown.Divider />
                                                 <Dropdown.Item text="Logout" as={Link} to={"/logout"}/>
                                             </Dropdown.Menu>
