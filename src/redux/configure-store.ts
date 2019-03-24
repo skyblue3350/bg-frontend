@@ -13,6 +13,7 @@ const slicer = () => (state: ReduxState) => {
         UserReducer: {
             uid: state.UserReducer.uid,
             username: state.UserReducer.username,
+            jwt: state.UserReducer.jwt,
         }
     }
 }
