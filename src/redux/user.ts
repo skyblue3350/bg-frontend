@@ -1,3 +1,5 @@
+import API from "../API";
+
 export const LOGIN_TRIES = "LOGIN_TRIES"
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 export const LOGIN_FAIL = "LOGIN_FAIL"
@@ -5,7 +7,7 @@ export const LOGOUT = "LOGOUT"
 
 export interface UserState {
     uid: string
-    pass: string
+    username: string
     jwt: string
     isFetch: boolean
     message: string
@@ -32,7 +34,7 @@ type UserAction = LoginAction_TRIES | LoginAction_SUCCESS | LoginAction_FAIL | L
 
 const initialState: UserState = {
     uid: null,
-    pass: null,
+    username: null,
     jwt: null,
     isFetch: false,
     message: null
@@ -40,7 +42,6 @@ const initialState: UserState = {
 
 // Reducer
 export default function UserReducer(state=initialState, action: UserAction): UserState {
-    console.log(action.type);
     switch (action.type) {
         case LOGIN_TRIES:
             return {
@@ -52,6 +53,7 @@ export default function UserReducer(state=initialState, action: UserAction): Use
                 ...state,
                 uid: action.payload.uid,
                 jwt: action.payload.jwt,
+                username: action.payload.username,
                 isFetch: false,
             }
         case LOGIN_FAIL:
@@ -70,7 +72,8 @@ export default function UserReducer(state=initialState, action: UserAction): Use
 
 // Action
 export interface UserActions {
-    login: (uid: string, pass: string) => void
+    login: (uid: string, pass:string) => void
+    logout: () => void
 }
 
 export function fetch() {
@@ -86,11 +89,12 @@ export function fail(message: string) {
     }
 }
 
-export function login(uid: string, jwt: string){
+export function login(uid: string, username: string, jwt: string){
     return {
         type: LOGIN_SUCCESS,
         payload: {
             uid,
+            username,
             jwt,
         }
     }
@@ -99,5 +103,20 @@ export function login(uid: string, jwt: string){
 export function logout(){
     return {
         type: LOGOUT
+    }
+}
+
+export function login_local(uid: string, pass:string) {
+    return (dispatch, getState) => {
+        const api = new API();
+        dispatch(fetch())
+
+        api.login(uid, pass).then( (res) => {
+            const { id, username } = res.data.user;
+            dispatch(login(id, username, res.data.jwt));
+        }).catch( (error) => {
+            dispatch(fail(error.response.data.message));
+        })
+        
     }
 }
