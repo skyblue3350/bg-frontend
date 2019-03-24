@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ResponsiveHeader from "./components/ResponsiveHeader"
 import TopPage from "./routes/TopPage";
 import LoginPage from "./routes/LoginPage";
-import Footer from "./components/Footer"
 import NotFound from "./routes/404";
-
+import Logout from "./routes/Logout";
+import Footer from "./components/Footer"
 
 export interface Props {
 }
@@ -27,6 +27,7 @@ export default class App extends React.Component<Props, State> {
                     <Switch>
                         <Route path="/" exact component={TopPage} />
                         <Route path="/login" component={LoginPage} />
+                        <Route path="/logout" component={Logout} />
                         <Route component={NotFound} />
                     </Switch>
                     <Footer />
