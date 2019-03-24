@@ -5,8 +5,9 @@ import ResponsiveHeader from "./components/ResponsiveHeader"
 import TopPage from "./routes/TopPage";
 import LoginPage from "./routes/LoginPage";
 import NotFound from "./routes/404";
+import Database from "./routes/Database";
 import Logout from "./routes/Logout";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 
 export interface Props {
 }
@@ -26,6 +27,7 @@ export default class App extends React.Component<Props, State> {
                     <ResponsiveHeader />
                     <Switch>
                         <Route path="/" exact component={TopPage} />
+                        <Route path="/database/" exact component={Database} />
                         <Route path="/login" component={LoginPage} />
                         <Route path="/logout" component={Logout} />
                         <Route component={NotFound} />
