@@ -8,6 +8,7 @@ import {
     Menu,
     Image,
     Input,
+    Dropdown,
 } from "semantic-ui-react"
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -18,7 +19,8 @@ import { Dispatch } from "redux";
 import { ReduxState } from "../redux/configure-store";
 
 export interface Props {
-    uid: UserState["jwt"],
+    uid: UserState["uid"],
+    username: UserState["username"]
 }
 
 export interface State {
@@ -28,6 +30,7 @@ export interface State {
 export class DesktopHeader extends React.Component<Props, State> {
     static defaultProps: Props = {
         uid: null,
+        username: null,
     }
 
     constructor(props: Props) {
@@ -82,9 +85,14 @@ export class DesktopHeader extends React.Component<Props, State> {
                                         <Button as={Link} to={"/login"} inverted={!this.state.fixed}>
                                             Login
                                         </Button> :
-                                        <Button as={Link} to={"/login"} inverted={!this.state.fixed}>
-                                            Logout
-                                        </Button>
+                                        <Dropdown text={this.props.username} fluid>
+                                            <Dropdown.Menu>
+                                                <Dropdown.Item text="Database" as={Link} to={"/database/"}/>
+                                                <Dropdown.Item text="Library" as={Link} to={this.props.uid + "/"}/>
+                                                <Dropdown.Divider />
+                                                <Dropdown.Item text="Logout" as={Link} to={"/logout"}/>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
                                     }
                                     
                                 </Menu.Item>
@@ -99,7 +107,8 @@ export class DesktopHeader extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-    uid: state.UserReducer.uid
+    uid: state.UserReducer.uid,
+    username: state.UserReducer.username,
 });
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({dispatch});
 
