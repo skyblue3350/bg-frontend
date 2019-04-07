@@ -112,11 +112,21 @@ export function login_local(uid: string, pass:string) {
         dispatch(fetch())
 
         api.login(uid, pass).then( (res) => {
-            const { id, username } = res.data.user;
-            dispatch(login(id, username, res.data.jwt));
+            dispatch(getUserData(res.data.key));
         }).catch( (error) => {
-            dispatch(fail(error.response.data.message));
+            dispatch(fail(error.response.data.non_field_errors));
         })
         
+    }
+}
+
+function getUserData(key: string) {
+    return (dispatch, getState) => {
+        const api = new API(key+"a");
+        api.getUserDate().then( (res) => {
+            dispatch(login(res.data.email, res.data.username, key));
+        }).catch( (error) => {
+            dispatch(fail(error.response.data.detail));
+        });
     }
 }

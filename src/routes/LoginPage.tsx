@@ -65,7 +65,7 @@ class LoginPage extends React.Component<Props & UserActions, State> {
                                         fluid
                                         icon="user"
                                         iconPosition="left"
-                                        placeholder="E-mail address"
+                                        placeholder="E-mail or username"
                                         required />
                                     <Form.Input
                                         name="pass"
@@ -80,15 +80,14 @@ class LoginPage extends React.Component<Props & UserActions, State> {
                                     {this.props.message == null ? null : <Message error header="Error" content={this.props.message} />}
                                     <Button.Group>
                                         <Form.Button positive content="ログイン" disabled={this.props.isFetch}/>
-                                        <Button.Or />
-                                        <Button negative as="div" disabled>パスワードリセット</Button>
                                     </Button.Group>
 
                                     <Divider />
 
-                                    <Button color="teal" as={Link} to="/register" disabled>
+                                    <Button color="teal" as={Link} to="/register">
                                         新規登録
                                     </Button>
+                                    <Button negative as={Link} to={"/reset"}>パスワードリセット</Button>
                                 </Segment>
                             </Form>
                         </Grid.Column>
@@ -98,19 +97,19 @@ class LoginPage extends React.Component<Props & UserActions, State> {
                             </Header>
 
                             <Divider />
-                            <Button color="twitter" fluid>
+                            <Button color="twitter" fluid disabled>
                                 <Icon name="twitter" /> Twitter
                             </Button>
                             <Divider />
-                            <Button color="google plus" fluid>
+                            <Button color="google plus" fluid disabled>
                                 <Icon name="google plus" /> Google
                             </Button>
                             <Divider />
-                            <Button color="facebook" fluid>
+                            <Button color="facebook" fluid disabled>
                                 <Icon name="discord" /> Discord
                             </Button>
                             <Divider />
-                            <Button fluid>
+                            <Button fluid  disabled>
                                 <Icon name="github" /> Github
                             </Button>
                             <Divider />
