@@ -13,17 +13,22 @@ export default class API {
             responseType: "json",
         });
         if (token) {
-            this.axios.defaults.headers.Authorization = `Bearer ${token}`;
+            this.axios.defaults.headers.Authorization = `Token ${token}`;
         }
 
         this.games = new GamesAPI(this.axios);
     }
 
     login(uid: string, pass: string) {
-        return this.axios.post("/auth/local", {
-            identifier: uid,
+        return this.axios.post("/auth/login/", {
+            username: uid,
+            email: "",
             password: pass,
         });
+    }
+
+    getUserDate() {
+        return this.axios.get("/auth/user/");
     }
 }
 
