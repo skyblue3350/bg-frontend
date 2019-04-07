@@ -4,7 +4,7 @@ import GamesAPI from "./api/games";
 export default class API {
     private axios;
     public games;
-    public host = "http://192.168.1.5:1337";
+    public host = "http://127.0.0.1:8000";
 
     constructor(token?: string) {
         this.axios = axios.create({
