@@ -22,7 +22,6 @@ export default class API {
     login(uid: string, pass: string) {
         return this.axios.post("/auth/login/", {
             username: uid,
-            email: "",
             password: pass,
         });
     }
