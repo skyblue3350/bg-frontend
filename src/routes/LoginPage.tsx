@@ -65,7 +65,7 @@ class LoginPage extends React.Component<Props & UserActions, State> {
                                         fluid
                                         icon="user"
                                         iconPosition="left"
-                                        placeholder="E-mail or username"
+                                        placeholder="Username"
                                         required />
                                     <Form.Input
                                         name="pass"
