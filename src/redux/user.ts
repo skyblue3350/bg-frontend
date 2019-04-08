@@ -122,7 +122,7 @@ export function login_local(uid: string, pass:string) {
 
 function getUserData(key: string) {
     return (dispatch, getState) => {
-        const api = new API(key+"a");
+        const api = new API(key);
         api.getUserDate().then( (res) => {
             dispatch(login(res.data.email, res.data.username, key));
         }).catch( (error) => {
