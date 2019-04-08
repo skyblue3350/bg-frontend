@@ -29,7 +29,7 @@ class Database extends React.Component<Props, State> {
     componentDidMount() {
         this.api.games.find().then((res) => {
             this.setState({
-                games: res.data
+                games: res.data.results
             });
         });
     }
@@ -46,14 +46,14 @@ class Database extends React.Component<Props, State> {
                             return (
                                 <Item key={item.name}>
                                     
-                                    <Item.Image size="tiny" src={item.image.length == 0 ? "" : this.api.host + item.image[0].url} />
+                                    <Item.Image size="tiny" src={item.thumnail.length == 0 ? "" : item.thumnail} />
                                     <Item.Content>
                                         <Item.Header as={Link} to={item.name}>{item.name}</Item.Header>
-                                        <Item.Meta>説明</Item.Meta>
                                         <Item.Description>
                                             {item.description}
                                         </Item.Description>
-                                        <Item.Extra>Additional Details</Item.Extra>
+                                        <Item.Meta>操作</Item.Meta>
+                                        <Item.Extra>欲しいものリストに追加</Item.Extra>
                                     </Item.Content>
                                 </Item>
                             );
