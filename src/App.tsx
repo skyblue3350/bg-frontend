@@ -7,6 +7,7 @@ import LoginPage from "./routes/LoginPage";
 import NotFound from "./routes/404";
 import Database from "./routes/Database";
 import Logout from "./routes/Logout";
+import Register from "./routes/Register";
 import Footer from "./components/Footer";
 
 export interface Props {
@@ -30,6 +31,7 @@ export default class App extends React.Component<Props, State> {
                         <Route path="/database/" exact component={Database} />
                         <Route path="/login" component={LoginPage} />
                         <Route path="/logout" component={Logout} />
+                        <Route path="/register" component={Register} />
                         <Route component={NotFound} />
                     </Switch>
                     <Footer />
